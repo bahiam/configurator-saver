@@ -1,10 +1,16 @@
 <dom-module id="confsave-tab">
   <template>
-    <span>{{name}}</span>
-    <template is="dom-if" if="{{_isNew(name)}}">
+    <img src="{{_iconUrl(configuration.sku)}}" />
+    <template is="dom-if" if="{{renameEnabled}}">
+      <paper-input label="{{configuration.name}}"></paper-input>
+    </template>
+    <template is="dom-if" if="{{!renameEnabled}}">
+      <span>{{configuration.name}}</span>
+    </template>
+    <template is="dom-if" if="{{_isNew(configuration.name)}}">
       <iron-icon icon="icons:add"></iron-icon>
     </template>
-    <template is="dom-if" if="{{!_isNew(name)}}">
+    <template is="dom-if" if="{{!_isNew(configuration.name)}}">
       <iron-icon icon="icons:close" on-tap="_close"></iron-icon>
     </template>
   </template>
@@ -13,19 +19,25 @@
   Polymer({
     is: "confsave-tab",
     properties: {
-      name: {
-        type: String,
-        value: "New ..."
+      configuration: {
+        type: Object,
+        value: {
+          name: "New ..."
+        }
       },
-      id: {
-        type: String
+      renameEnabled: {
+        type: Boolean,
+        value: false
       }
     },
     _isNew: function(name) {
-      return name === "New ...";
+      return this.configuration.name === "New ...";
     },
     _close: function() {
-      this.fire("confsave-close-tab", this.id);
+      this.fire("confsave-close-tab", this.configuration.id);
+    },
+    _iconUrl: function(sku) {
+      return "http://skuapp.azurewebsites.net//image/" + sku + "?size=50";
     }
   });
 </script>

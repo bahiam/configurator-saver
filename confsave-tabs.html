@@ -2,7 +2,7 @@
   <template>
     <paper-tabs selected="{{selected}}">
       <template is="dom-repeat" items="{{configurations}}">
-        <paper-tab><confsave-tab name="{{item.name}}" id="{{item.id}}"></confsave-tab></paper-tab>
+        <paper-tab><confsave-tab configuration="{{item}}"></confsave-tab></paper-tab>
       </template>
       <paper-tab on-tap="_newTab"><confsave-tab></confsave-tab></paper-tab>
     </paper-tabs>
@@ -10,7 +10,7 @@
       <template is="dom-repeat" items="{{configurations}}">
         <div>{{item.sku}}</div>
       </template>
-      <div>new tab</div>
+      <div>Click the tab header to add a new configuration.</div>
     </iron-pages>
   </template>
 </dom-module>
