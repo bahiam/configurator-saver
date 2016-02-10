@@ -1,0 +1,24 @@
+<dom-module id="confsave-configuration">
+  <style>
+    .configurator-container {
+      max-width:1000px;
+      margin:auto;
+      padding: 50px;
+    }
+
+    paper-input {
+      margin-bottom: 50px;
+    }
+  </style>
+  <template>
+    <div class="configurator-container">
+      <paper-input label="Configuration Name" value="{{model.name}}"></paper-input>
+      <asi-configurator base-api-url="http://skuapp.azurewebsites.net/" sku="{{model.sku}}"></asi-configurator-product>
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "confsave-configuration"
+  });
+</script>

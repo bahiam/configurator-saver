@@ -3,20 +3,18 @@
     .main-container {
       padding:10px
     }
+    img {
+      width:50px;
+    }
   </style>
   <template>
     <div class="main-container">
-      <img src="{{_iconUrl(configuration.sku)}}" />
-      <!-- <template is="dom-if" if="{{renameEnabled}}">
-        <paper-input label="{{configuration.name}}"></paper-input>
-      </template>
-      <template is="dom-if" if="{{!renameEnabled}}">
-        <span>{{configuration.name}}</span>
-      </template> -->
       <template is="dom-if" if="{{_isNew(configuration.name)}}">
+        <img src="./images/new.png" />
         <iron-icon icon="icons:add"></iron-icon>
       </template>
       <template is="dom-if" if="{{!_isNew(configuration.name)}}">
+        <img src="{{_iconUrl(configuration.sku)}}" />
         <iron-icon icon="icons:close" on-tap="_close"></iron-icon>
       </template>
     </div>
