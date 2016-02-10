@@ -1,18 +1,25 @@
 <dom-module id="confsave-tab">
+  <style>
+    .main-container {
+      padding:10px
+    }
+  </style>
   <template>
-    <img src="{{_iconUrl(configuration.sku)}}" />
-    <template is="dom-if" if="{{renameEnabled}}">
-      <paper-input label="{{configuration.name}}"></paper-input>
-    </template>
-    <template is="dom-if" if="{{!renameEnabled}}">
-      <span>{{configuration.name}}</span>
-    </template>
-    <template is="dom-if" if="{{_isNew(configuration.name)}}">
-      <iron-icon icon="icons:add"></iron-icon>
-    </template>
-    <template is="dom-if" if="{{!_isNew(configuration.name)}}">
-      <iron-icon icon="icons:close" on-tap="_close"></iron-icon>
-    </template>
+    <div class="main-container">
+      <img src="{{_iconUrl(configuration.sku)}}" />
+      <!-- <template is="dom-if" if="{{renameEnabled}}">
+        <paper-input label="{{configuration.name}}"></paper-input>
+      </template>
+      <template is="dom-if" if="{{!renameEnabled}}">
+        <span>{{configuration.name}}</span>
+      </template> -->
+      <template is="dom-if" if="{{_isNew(configuration.name)}}">
+        <iron-icon icon="icons:add"></iron-icon>
+      </template>
+      <template is="dom-if" if="{{!_isNew(configuration.name)}}">
+        <iron-icon icon="icons:close" on-tap="_close"></iron-icon>
+      </template>
+    </div>
   </template>
 </dom-module>
 <script>

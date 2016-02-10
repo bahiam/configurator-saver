@@ -1,17 +1,34 @@
 <dom-module id="confsave-tabs">
+  <style>
+    .configurator-container {
+      width:1000px;
+      margin:auto;
+      padding: 50px;
+    }
+
+    paper-tabs {
+      height:100px;
+    }
+  </style>
   <template>
+    <h1>Seating configurator</h1>
     <paper-tabs selected="{{selected}}">
       <template is="dom-repeat" items="{{configurations}}">
         <paper-tab><confsave-tab configuration="{{item}}"></confsave-tab></paper-tab>
       </template>
       <paper-tab on-tap="_newTab"><confsave-tab></confsave-tab></paper-tab>
     </paper-tabs>
-    <iron-pages selected="{{selected}}">
-      <template is="dom-repeat" items="{{configurations}}">
-        <div>{{item.sku}}</div>
-      </template>
-      <div>Click the tab header to add a new configuration.</div>
-    </iron-pages>
+    <paper-header-panel>
+      <paper-toolbar>
+      </paper-toolbar>
+      <iron-pages selected="{{selected}}">
+        <template is="dom-repeat" items="{{configurations}}">
+          <div class="configurator-container"><asi-configurator base-api-url="http://skuapp.azurewebsites.net/" sku="{{item.sku}}"></asi-configurator-product></div>
+        </template>
+        <div>Click the tab header to add a new configuration.</div>
+      </iron-pages>
+    </paper-header-panel>
+
   </template>
 </dom-module>
 <script>
