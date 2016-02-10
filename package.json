@@ -1,5 +1,8 @@
 {
-  "name":    "configurator-saver",
+  "name": "configurator-saver",
   "version": "0.0.1",
-  "main":    "main.js"
+  "main": "main.js",
+  "dependencies": {
+    "jsonfile": "^2.2.3"
+  }
 }

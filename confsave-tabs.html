@@ -19,6 +19,7 @@
       <paper-toolbar>
         <h1><img class="logo" src="./images/logo.jpg" />
         Seating configurator</h1>
+        <a href="#" on-tap="_save">Save configuration</a>
         <paper-tabs selected="{{selected}}">
           <template is="dom-repeat" items="{{configurations}}">
             <paper-tab><confsave-tab configuration="{{item}}"></confsave-tab></paper-tab>
@@ -37,6 +38,8 @@
   </template>
 </dom-module>
 <script>
+  const ipcRenderer = require('electron').ipcRenderer;
+  
   Polymer({
     is: "confsave-tabs",
     properties: {
@@ -78,6 +81,9 @@
         }
       });
       this.pop("configurations", index);
+    },
+    _save: function (e) {
+        ipcRenderer.send("confsave-save", this.configurations);
     }
   });
 </script>
