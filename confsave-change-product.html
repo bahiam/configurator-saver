@@ -1,0 +1,149 @@
+<dom-module id="confsave-change-product">
+  <style>
+    ul { list-style: none; margin-right:100px; }
+    div, img { float:right; }
+  </style>
+  <template>
+    <h2>Change Product:</h2>
+    <ul>
+      <template is="dom-repeat" items="{{products}}">
+      	<li on-tap="_selectProduct">
+      		<img src="{{_imgSrc(item.sku)}}" />
+      		<div>{{item.name}}</div>
+      	</li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "confsave-change-product",
+    properties: {
+      products: {
+        type: Array,
+        value:[
+          {
+              "name": "Parallel",
+              "sku": "CLCNO.PR6.FSC.ABI80"
+            },
+            {
+              "name": "Mimeo",
+              "sku": "MIW-KWNO.T.T.WT.N.2.T.KM08.NR46"
+            },
+            {
+                "name": "Acuity Work",
+                "sku": "AWMWTLNO.PQ8.2.T.CU19"
+            },
+            {
+                "name": "Acuity Side",
+                "sku": "ACM-MUGO.0.PQ8.TL.CU19"
+            },
+            {
+              "name": "Relate Work",
+              "sku": "RL-MHW.2.0.L.CBKLKM01.PNS007"
+            },
+            {
+              "name": "Relate Side",
+              "sku": "RLM-MUGOFC.0.CBKLKM01.NE800.PNS007"
+            },
+            {
+              "name": "Relate Work Stool",
+              "sku": "RLS-MHW.4.0.L.CBKLKM01.PNS007"
+            },
+            {
+              "name": "Relate 4-Legged Stool",
+              "sku": "RLC-MUCOFC.0.CBKLKM01NE800.PNS007"
+            },
+             {
+              "name": "#19",
+              "sku": "A19-HWS.2.PR6.CU19"
+            },
+             {
+              "name": "Clarity",
+              "sku": "C5OMFC.CM23.PR6.T.PR6.2.PR6"
+            },
+             {
+                "name": "Access",
+                "sku": "ESW-MWNO.2.0.BLK.BLK.AM10.CU10"
+            },
+            {
+                "name": "Sum Work",
+                "sku": "SUM-HW.2.0.BLK.AI90"
+            },
+             {
+                "name": "Sum Work Stool",
+                "sku": "SUM-SHW.4.0.BLK.PNL14"
+            },
+             {
+              "name": "Seek",
+              "sku": "K-MUGOBNO.BLK.0.WP37"
+            },
+             {
+                "name": "Inspire Stacking",
+                "sku": "INST-NGONO.0.H.PR6.WT.PNS011"
+            },
+             {
+                "name": "Inspire Tablet Arm",
+                "sku": "INSTT-NGAFRSNO.0.N.PR6.WT.LWD.PNS011"
+            },
+             {
+                "name": "Inspire 5-Star",
+                "sku": "INTK-SONO.2.0.H.PR6.WT.PNS009"
+            },
+             {
+                "name": "Inspire Stool",
+                "sku": "INWS-SONO.4.0.H.PR6.WT.PNS009"
+            },
+             {
+              "name": "Nimble",
+              "sku": "NMBL-1FC.0.BLK"
+            },
+            {
+              "name": "Take-5",
+              "sku": "S927WCS.POL.SE800.0.PNS005"
+            },
+             {
+              "name": "Take-5 Stool",
+              "sku": "S927SCS.POL.SE800.0.PNS010"
+            },
+            {
+                "name": "Scooch",
+                "sku": "S923.PR6.FSC.DOL726.DOL724"
+            },
+            {
+                "name": "Linger",
+                "sku": "S924BS.PR6.FSC.WOL009"
+            },
+             {
+                "name": "Rise",
+                "sku": "S922S2.FSC.PNS006,S922T.PR3"
+            },
+             {
+                "name": "Mind-Share",
+                "sku": "S925B52F52.PR6.FSC.PNS007.EQU56.PNS001"
+            },
+             {
+                "name": "Tolleson Side",
+                "sku": "T-SLOP.0.P80.P71.PNS001"
+            },
+            {
+                "name": "Scout Work",
+                "sku": "SCU-MW.F.2.0.P71.PNS001"
+            },
+             {
+                "name": "Scout Work Stool",
+                "sku": "SCU-SMW.F.4.0.P71.PNS001"
+            }
+
+        ]
+      }
+    },
+    _imgSrc: function(sku) {
+      return "http://skuapp.azurewebsites.net/image/" + sku + "?size=200";
+    },
+    _selectProduct: function(e) {
+      var sku = e.model.item.sku;
+      this.fire("confsave-picked-product", sku);
+    }
+  });
+</script>

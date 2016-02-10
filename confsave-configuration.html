@@ -9,16 +9,39 @@
     paper-input {
       margin-bottom: 50px;
     }
+
+    .pick {
+      width:25%;
+      float:left;
+    }
+    .edit {
+      width:75%;
+      float:left;
+    }
   </style>
   <template>
     <div class="configurator-container">
-      <paper-input label="Configuration Name" value="{{model.name}}"></paper-input>
-      <asi-configurator base-api-url="http://skuapp.azurewebsites.net/" sku="{{model.sku}}"></asi-configurator-product>
+      <div class="pick">
+          <confsave-change-product></confsave-change-product>
+      </div>
+      <div class="edit">
+        <paper-input label="Configuration Name" value="{{model.name}}"></paper-input>
+        <asi-configurator id="configurator" base-api-url="http://skuapp.azurewebsites.net/" sku="{{model.sku}}"></asi-configurator-product>
+      </div>
+
     </div>
   </template>
 </dom-module>
 <script>
   Polymer({
-    is: "confsave-configuration"
+    is: "confsave-configuration",
+    listeners: {
+      "confsave-picked-product": "_changeSku"
+    },
+    _changeSku: function(e) {
+      var newSku = e.detail;
+      console.log(newSku);
+      this.$.configurator.sku = newSku;
+    }
   });
 </script>
