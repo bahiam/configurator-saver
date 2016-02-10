@@ -1,0 +1,25 @@
+<dom-module id="confsave-tab">
+  <template>
+    <span>{{name}}</span>
+    <template is="dom-if" if="{{_isNew(name)}}">
+      <iron-icon icon="icons:add"></iron-icon>
+    </template>
+    <template is="dom-if" if="{{!_isNew(name)}}">
+      <iron-icon icon="icons:close"></iron-icon>
+    </template>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "confsave-tab",
+    properties: {
+      name: {
+        type: String,
+        value: "New ..."
+      }
+    },
+    _isNew: function(name) {
+      return name === "New ...";
+    }
+  });
+</script>
