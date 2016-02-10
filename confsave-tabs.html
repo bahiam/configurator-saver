@@ -1,14 +1,16 @@
 <dom-module id="confsave-tabs">
   <template>
     <paper-tabs selected="{{selected}}">
-      <paper-tab><confsave-tab name="Chair 1"></confsave-tab></paper-tab>
-      <paper-tab><confsave-tab name="Chair 2"></confsave-tab></paper-tab>
-      <paper-tab><confsave-tab></confsave-tab></paper-tab>
+      <template is="dom-repeat" items="{{configurations}}">
+        <paper-tab><confsave-tab name="{{item.name}}" id="{{item.id}}"></confsave-tab></paper-tab>
+      </template>
+      <paper-tab on-tap="_newTab"><confsave-tab></confsave-tab></paper-tab>
     </paper-tabs>
     <iron-pages selected="{{selected}}">
-      <div>Page 1</div>
-      <div>Page 2</div>
-      <div>Page 3</div>
+      <template is="dom-repeat" items="{{configurations}}">
+        <div>{{item.sku}}</div>
+      </template>
+      <div>new tab</div>
     </iron-pages>
   </template>
 </dom-module>
@@ -19,7 +21,41 @@
       selected: {
         type: Number,
         value: 0
+      },
+      configurations: {
+        type: Array,
+        value: []
       }
+    },
+    _newTab: function() {
+      this.push("configurations", {
+        id: this._guid(),
+        name: "#19 in Silver with CU",
+        sku: "A19-HWS.2.PR6.CU42"
+      });
+      this.selected = this.configurations.length - 2;
+    },
+    _guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+    },
+    listeners: {
+      "confsave-close-tab": "_closeTab"
+    },
+    _closeTab: function(e) {
+      var id = e.detail;
+      var index = 0;
+      this.configurations.forEach(function(item, i) {
+        if(item.id == id) {
+          index = i;
+        }
+      });
+      this.pop("configurations", index);
     }
   });
 </script>

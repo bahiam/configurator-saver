@@ -5,7 +5,7 @@
       <iron-icon icon="icons:add"></iron-icon>
     </template>
     <template is="dom-if" if="{{!_isNew(name)}}">
-      <iron-icon icon="icons:close"></iron-icon>
+      <iron-icon icon="icons:close" on-tap="_close"></iron-icon>
     </template>
   </template>
 </dom-module>
@@ -16,10 +16,16 @@
       name: {
         type: String,
         value: "New ..."
+      },
+      id: {
+        type: String
       }
     },
     _isNew: function(name) {
       return name === "New ...";
+    },
+    _close: function() {
+      this.fire("confsave-close-tab", this.id);
     }
   });
 </script>
