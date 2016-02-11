@@ -38,11 +38,14 @@
   </template>
 </dom-module>
 <script>
-  const ipcRenderer = require('electron').ipcRenderer;
-  
+
   Polymer({
     is: "confsave-tabs",
     properties: {
+      ipcRenderer: {
+        type: Object,
+        value: require('electron').ipcRenderer
+      },
       selected: {
         type: Number,
         value: 0
@@ -83,7 +86,19 @@
       this.pop("configurations", index);
     },
     _save: function (e) {
-        ipcRenderer.send("confsave-save", this.configurations);
+        this.ipcRenderer.send("confsave-save", this.configurations);
+    },
+    setConfiguration: function(conf) {
+      console.log(conf);
+    },
+    ready: function() {
+      var self = this;
+      this.ipcRenderer.on("confsave-setconfiguration", function(e, arg) {
+        self.set("configurations", arg);
+      });
+    },
+    attached: function() {
+      this.ipcRenderer.send("confsave-readytogo", null);
     }
   });
 </script>

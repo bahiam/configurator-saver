@@ -6,7 +6,10 @@ const electron = require('electron');
 var mainWindow = null;
 var http = require('http');
 var fs = require('fs');
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile');
+var jsonDestFile = "C:\\CetDev\\version6.5\\home\\custom\\hni\\data\\userInfo\\seating.json";
+var mkdirp = require("mkdirp");
+var path = require("path");
 
 var download = function (url, dest, cb) {
     var file = fs.createWriteStream(dest);
@@ -25,11 +28,20 @@ const ipcMain = electron.ipcMain;
 
 app.on('ready', function () {
     mainWindow = new BrowserWindow({
-        height: 600,
-        width: 800
+        height: 800,
+        width: 1200
+    });
+
+    ipcMain.on("confsave-readytogo", function(e, args) {
+      fs.readFile(jsonDestFile, "utf-8", function(err, content) {
+        if(err) return;
+        var configuration = JSON.parse(content);
+        e.sender.send('confsave-setconfiguration', configuration);
+      });
     });
 
     ipcMain.on("confsave-save", function (e, configurations) {
+      mkdirp(path.dirname(jsonDestFile), function(){
         configurations.forEach(function (item, i) {
             var imageUrl = "http://skuapp.azurewebsites.net/image/" + item.sku + "?size=50";
             var imageFileName = item.sku + ".png";
@@ -37,19 +49,27 @@ app.on('ready', function () {
 
             if (!fs.existsSync(imageDestFile)) {
                 download(imageUrl, imageDestFile, function () {
-                    
+
                 });
             }
 
             item.image = imageFileName;
         });
 
-        var jsonDestFile = "C:\\CetDev\\version6.5\\home\\custom\\hni\\data\\userInfo\\seating.json";
-
         jsonfile.writeFile(jsonDestFile, configurations, function (err) {
             console.error(err);
-        })
+        });
+      });
+
     });
 
+    console.log("eita");
+
     mainWindow.loadURL('file://' + __dirname + '/index.html');
+
+
+
+
+
+
 });
